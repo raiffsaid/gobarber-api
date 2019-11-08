@@ -29,6 +29,4 @@ export default async (req, res, next) => {
       error: 'Invalid Token'
     });
   }
-
-  return next();
 };
