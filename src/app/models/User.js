@@ -32,6 +32,12 @@ class User extends Model {
     return this;
   }
 
+  static associate(models) {
+    this.belongsTo(models.File, {
+      foreignKey: 'avatar_id'
+    });
+  }
+
   checkPassword(password) {
     // Compara a senha que o usuário tenta logar com a senha que ele tem no DB
     // Caso as senhas sejam iguais, retorna true
