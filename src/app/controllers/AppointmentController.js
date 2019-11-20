@@ -52,7 +52,7 @@ class AppointmentController {
 
     const { provider_id, date } = req.body;
 
-    /*
+    /**
      * Verifica se provider_id é um prestador
      */
 
@@ -66,17 +66,36 @@ class AppointmentController {
       });
     }
 
-    // Transforma a data num objeto e zera os minutos com o método startOfHour()
+    /**
+     * Verifica se o usuário está tentando marcar com ele mesmo
+     */
+
+    if (req.userId === provider_id) {
+      return res.status(401).json({
+        error: 'You can not schedule an appointment with yourself'
+      });
+    }
+
+    /**
+     * Transforma a data num objeto e zera os minutos com o método startOfHour()
+     */
+
     const hourStart = startOfHour(parseISO(date));
 
-    // Verifica se a data passada é anterior à data atual
+    /**
+     *  Verifica se a data passada é anterior à data atual
+     */
+
     if (isBefore(hourStart, new Date())) {
       return res.status(400).json({
         error: 'Past dates are not permitted'
       });
     }
 
-    // Verifica a disponibilidade de horário do prestador
+    /**
+     * Verifica a disponibilidade de horário do prestador
+     */
+
     const checkAvailability = await Appointment.findOne({
       where: {
         provider_id,
