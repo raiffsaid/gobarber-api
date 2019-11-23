@@ -18,8 +18,11 @@ const upload = multer(multerConfig);
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
-// Chamando o middleware globalmente
-// Apenas códigos que são chamados depois passam pelo middleware
+/**
+ * Chamando o middleware globalmente
+ * Apenas códigos que são chamados depois passam pelo middleware 
+ * */ 
+
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);

@@ -11,9 +11,11 @@ import Queue from '../../lib/Queue';
 
 class AppointmentController {
   async index(req, res) {
+
     /**
      * Caso page não seja informado, por padrão define page = 1
      */
+    
     const { page = 1 } = req.query;
 
     const appointments = await Appointment.findAll({
@@ -49,7 +51,7 @@ class AppointmentController {
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({
-        error: 'Validation fails'
+        error: 'Validation failed'
       });
     }
 
@@ -122,6 +124,7 @@ class AppointmentController {
     /**
      * Notificar prestador de serviço
      */
+
     const user = await User.findByPk(req.userId);
     const formattedDate = format(
       hourStart,
