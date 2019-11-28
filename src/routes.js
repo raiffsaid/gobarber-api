@@ -24,7 +24,7 @@ routes.post('/sessions', SessionController.store);
  * Apenas códigos que são chamados depois passam pelo middleware 
  * */ 
 
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
 
